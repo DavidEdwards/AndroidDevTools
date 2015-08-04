@@ -8,7 +8,7 @@
 <p>Use to install an APK onto an Android device. Example usage, drag the APK you want to install onto this batch file.</p>
 
 <h2>sign.bat</h2>
-<p>Use to sign this APK with the certificates provided in the sign folder. Example usage, drag the APK you want to sign onto this batch file.</p>
+<p>Use to sign this APK with the certificates provided in the sign folder. You will need to supply these certificates yourself. Example usage, drag the APK you want to sign onto this batch file.</p>
 
 <h2>sign_install.bat</h2>
 <p>Firstly sign.bat the supplied APK, then install.bat this APK. Example usage, drag the APK you want to sign & install onto this batch file.</p>
