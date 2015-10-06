@@ -1,15 +1,15 @@
+@echo off
+
 REM Pick a connected Android device. If there is one, automatically selected it. If there are many, give a list to choose.
 
-@echo off
 setlocal enabledelayedexpansion
+"%~dp0\tools\adb.exe" start-server 1> nul
 
 set chosendevice=Default
 set device[0]=NotADevice
-
-adb devices > "%~dp0\tmpFile"
-
 set /a c=0
 
+adb devices > "%~dp0\tmpFile"
 for /f "usebackq skip=1 tokens=1-2 delims=|" %%a in (%~dp0\tmpFile) do (
 	for /f "delims=	" %%b in ("%%a") do (
 		set /a c=!c!+1
@@ -18,10 +18,30 @@ for /f "usebackq skip=1 tokens=1-2 delims=|" %%a in (%~dp0\tmpFile) do (
 )
 del %~dp0\tmpFile
 
-if %c%==0 (
-	echo There are no devices connected. Please connect to at least one device via "adb connect x.x.x.x".
-	goto :error
-) else if %c%==1 (
+if !c!==0 (
+	echo There are no devices connected.
+	set /p ip=Please enter the IP address of a device: 
+	echo Connecting to... !ip!
+	"%~dp0\Tools\adb.exe" connect !ip!
+	
+	set /a c=0
+	adb devices > "%~dp0\tmpFile"
+	for /f "usebackq skip=1 tokens=1-2 delims=|" %%a in (%~dp0\tmpFile) do (
+		for /f "delims=	" %%b in ("%%a") do (
+			set /a c=!c!+1
+			set device[!c!]=%%b
+		)
+	)
+	del %~dp0\tmpFile
+	
+	if !c!==0 (
+		echo Failed to connect.
+		timeout 5
+		goto :error
+	)
+)
+
+if !c!==1 (
 	echo There is only one device.
 	echo.
 	echo Using !device[1]!.
@@ -32,11 +52,11 @@ if %c%==0 (
 )
 echo.
 
-for /l %%n in (1,1,%c%) do (
+for /l %%n in (1,1,!c!) do (
 	echo  %%n. !device[%%n]!
 )
 
-if %c%==1 (
+if !c!==1 (
 	echo One device! No choice required.
 ) else (
 	set /p "num=# "

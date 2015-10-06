@@ -1,6 +1,7 @@
+@echo off
+
 REM Query the host for connected Android devices. If one is found, continue to install the APK on the device.
 
-@echo off
 setlocal enabledelayedexpansion
 
 call "%~dp0\choose_device.bat"

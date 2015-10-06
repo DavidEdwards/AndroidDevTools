@@ -1,6 +1,7 @@
+@echo off
+
 REM All an Android device to connect by ADB. Run this command once your device has been connected by USB. Then you can connect to it by its IP address.
 
-@echo off
 setlocal enabledelayedexpansion
 
 call "%~dp0\choose_device.bat"

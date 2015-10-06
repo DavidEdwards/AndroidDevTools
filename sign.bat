@@ -1,6 +1,6 @@
-REM Sign an APK with supplied platform certificates.
-
 @echo off
+
+REM Sign an APK with supplied platform certificates.
 
 if not exist "%~dp0\sign\signapk.jar" (
     echo You are missing the signing jar. Please add signapk.jar to the sign\ folder.
