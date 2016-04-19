@@ -18,7 +18,7 @@ set FILENAME=%~nx1
 
 echo Installing !BINARY_PATH! on !chosendevice! at /system/xbin/!FILENAME!
 echo Pushing !FILENAME! to devices sdcard
-adb push %1 /sdcard/!FILENAME!
+adb -s "!chosendevice!" push %1 /sdcard/!FILENAME!
 echo Mounting system
 adb -s "!chosendevice!" shell "su -c 'mount -o rw,remount /system'"
 echo Copying !FILENAME! to system bin
