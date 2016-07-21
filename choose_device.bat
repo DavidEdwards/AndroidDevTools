@@ -3,7 +3,7 @@
 REM Pick a connected Android device. If there is one, automatically selected it. If there are many, give a list to choose.
 
 setlocal enabledelayedexpansion
-"%~dp0\tools\adb.exe" start-server 1> nul
+adb start-server 1> nul
 
 set chosendevice=Default
 set device[0]=NotADevice
@@ -22,7 +22,7 @@ if !c!==0 (
 	echo There are no devices connected.
 	set /p ip=Please enter the IP address of a device: 
 	echo Connecting to... !ip!
-	"%~dp0\Tools\adb.exe" connect !ip!
+	adb connect !ip!
 	
 	set /a c=0
 	adb devices > "%~dp0\tmpFile"

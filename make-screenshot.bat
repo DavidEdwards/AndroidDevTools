@@ -29,11 +29,11 @@ set /p chosendevice=< "%~dp0\chosendevice.temp"
 del "%~dp0\chosendevice.temp"
 
 echo Creating screenshot.
-"%~dp0\tools\adb.exe" -s "!chosendevice!" shell screencap -p /sdcard/%FILENAME% 1> nul
+adb -s "!chosendevice!" shell screencap -p /sdcard/%FILENAME% 1> nul
 echo Moving screenshot to this directory called "%FILENAME%".
-"%~dp0\tools\adb.exe" -s "!chosendevice!" pull /sdcard/%FILENAME% %~dp0\screenshots\%FILENAME% 1> nul
+adb -s "!chosendevice!" pull /sdcard/%FILENAME% %~dp0\screenshots\%FILENAME% 1> nul
 echo Deleting screenshot from remote device.
-"%~dp0\tools\adb.exe" -s "!chosendevice!" shell rm /sdcard/%FILENAME% 1> nul
+adb -s "!chosendevice!" shell rm /sdcard/%FILENAME% 1> nul
 
 echo Done.
 timeout 3
